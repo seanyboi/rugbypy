@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "rugbypy"
+  site-url: "https://seanyboi.github.io/rugbypy"
+  description: "Repository for rugby data analytics"
+  repo-branch: main
+  repo-url: "https://github.com/seanyboi/rugbypy"
