@@ -2,4 +2,4 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_core.ipynb
+      - fetch_match_stats.ipynb
