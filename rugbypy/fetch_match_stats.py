@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['say_hello']
 
-# %% ../nbs/fetch_match_stats.ipynb 3
+# %% ../nbs/fetch_match_stats.ipynb 4
 def say_hello(to):
     "Say hello to somebody"
     return f"Hello {to}!"
