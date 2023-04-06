@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "rugbypy",
+    "section": "",
+    "text": "rugbypy is a Python package that aims to make rugby data more available to aid in the development of rugby analytics :)"
+  },
+  {
+    "objectID": "index.html#requirements",
+    "href": "index.html#requirements",
+    "title": "rugbypy",
+    "section": "Requirements",
+    "text": "Requirements\npython version 3.8"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "rugbypy",
+    "section": "Install",
+    "text": "Install\npip install rugbypy\nconda install -c seanyboi rugbypy"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "rugbypy",
+    "section": "How to use",
+    "text": "How to use"
+  },
+  {
+    "objectID": "fetch_match_stats.html",
+    "href": "fetch_match_stats.html",
+    "title": "fetch_match_stats",
+    "section": "",
+    "text": "source\n\nsay_hello\n\n say_hello (to)\n\nSay hello to somebody\n\nsay_hello(\"Isaac\")\n\n'Hello Isaac!'\n\n\n\nassert say_hello(\"Hamel\")==\"Hello Hamel!\""
+  }
+]
