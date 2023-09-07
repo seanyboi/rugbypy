@@ -3,7 +3,47 @@
 # %% auto 0
 __all__ = ['fetch_player_stats']
 
-# %% ../nbs/fetch_player_stats.ipynb 3
-def fetch_player_stats(player_id: str):
-    "Fetches player stats for a particular player"
-    return f"{player_id}"
+# %% ../nbs/fetch_player_stats.ipynb 4
+def fetch_player_stats(player_id: str, date: Optional[str] = None):
+    """
+    Fetches all player stats for a particular player or if a date is passed then just for a particular game.
+    """
+    if date:
+        print(f"Fetching player stats for player_id:{player_id} on date:{date}...")
+    else:
+        print(f"Fetching all player stats for player_id:{player_id}...")
+    try:
+        if date:
+            player_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/player/{player_id}/{date}"
+            path = requests.get(player_url)
+            urls = [
+                f"https://github.com/seanyboi/rugbydata/blob/main/{p['path']}?raw=true"
+                for p in path.json()["payload"]["tree"]["items"]
+            ]
+            player_stats = pd.concat(
+                (pd.read_parquet(u, engine="pyarrow") for u in urls)
+            )
+            return player_stats
+        else:
+            player_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/player/{player_id}"
+            path = requests.get(player_url)
+            date_urls = [
+                f"https://github.com/seanyboi/rugbydata/blob/main/{p['path']}"
+                for p in path.json()["payload"]["tree"]["items"]
+            ]
+            player_urls = [requests.get(url) for url in date_urls]
+            player_urls = [
+                p.json()["payload"]["tree"]["items"][0]["path"] for p in player_urls
+            ]
+            player_stats_url = [
+                f"https://github.com/seanyboi/rugbydata/blob/main/{p}?raw=true"
+                for p in player_urls
+            ]
+            player_stats = pd.concat(
+                (pd.read_parquet(u, engine="pyarrow") for u in player_stats_url)
+            )
+            return player_stats
+    except Exception as e:
+        print(
+            f"No player stats for {player_id} because the player id does not exist. Please raise an issue! - {e}"
+        )
