@@ -19,3 +19,23 @@ pip install rugbypy
 ``` sh
 conda install -c seanyboi rugbypy
 ```
+
+## How to use
+
+### Match Stats
+
+``` python
+from rugbypy.match import fetch_matches
+```
+
+### Team Stats
+
+``` python
+from rugbypy.team import fetch_team_stats
+```
+
+### Player Stats
+
+``` python
+from rugbypy.player import fetch_player_stats
+```
