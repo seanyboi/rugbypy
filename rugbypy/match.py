@@ -4,6 +4,9 @@
 __all__ = ['fetch_matches', 'fetch_match_details']
 
 # %% ../nbs/match.ipynb 4
+import pandas as pd
+
+# %% ../nbs/match.ipynb 5
 def fetch_matches(date: str):
     """Fetches all match information on a particular date that includes: \n
     * match_id \n
@@ -23,7 +26,7 @@ def fetch_matches(date: str):
             f"No match information for matches played on {date} either because no matches took place or rugbypy does not have access to the match data. Please raise if neither."
         )
 
-# %% ../nbs/match.ipynb 6
+# %% ../nbs/match.ipynb 7
 def fetch_match_details(match_id: str):
     """Fetches match data for a certain match_id"""
     print(f"Fetching match details for match_id:{match_id}...")

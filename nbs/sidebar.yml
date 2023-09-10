@@ -2,6 +2,6 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - fetch_match_stats.ipynb
-      - fetch_player_stats.ipynb
-      - fetch_team_stats.ipynb
+      - match.ipynb
+      - player.ipynb
+      - team.ipynb

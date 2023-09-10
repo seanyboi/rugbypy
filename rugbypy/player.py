@@ -4,7 +4,12 @@
 __all__ = ['fetch_player_stats']
 
 # %% ../nbs/player.ipynb 4
-def fetch_player_stats(player_id: str, date: Optional[str] = None):
+import pandas as pd
+import requests
+import typing
+
+# %% ../nbs/player.ipynb 5
+def fetch_player_stats(player_id: str, date: typing.Optional[str] = None):
     """
     Fetches all player stats for a particular player or if a date is passed then just for a particular game.
     """
