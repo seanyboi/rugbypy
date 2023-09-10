@@ -23,7 +23,7 @@ def fetch_matches(date: str):
         return matches
     except Exception as e:
         print(
-            f"No match information for matches played on {date} either because no matches took place or rugbypy does not have access to the match data. Please raise if neither."
+            f"No match information for matches played on {date} either because no matches took place or rugbypy does not have access to the match data - {e}. Please raise if neither."
         )
 
 # %% ../nbs/match.ipynb 7

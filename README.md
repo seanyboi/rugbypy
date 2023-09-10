@@ -24,18 +24,455 @@ conda install -c seanyboi rugbypy
 
 ### Match Stats
 
+You can fetch all the matches that occured on a particular date with:
+
 ``` python
-from rugbypy.match import fetch_matches
+matches = fetch_matches(date="20230101")
+matches
 ```
+
+    Fetching matches on date:20230101...
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>match_id</th>
+      <th>competition_id</th>
+      <th>home_team_id</th>
+      <th>away_team_id</th>
+      <th>date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>595735</td>
+      <td>267979</td>
+      <td>25907</td>
+      <td>25901</td>
+      <td>20230101</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Then using that match id you can feed it into the match details
+function:
+
+``` python
+match_details = fetch_match_details(match_id="595735")
+match_details
+```
+
+    Fetching match details for match_id:595735...
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>match_id</th>
+      <th>date</th>
+      <th>competition_id</th>
+      <th>competition</th>
+      <th>venue_id</th>
+      <th>venue</th>
+      <th>city_played</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_id</th>
+      <th>away_team_id</th>
+      <th>completed</th>
+      <th>is_tournament</th>
+      <th>played_on_grass</th>
+      <th>attendance</th>
+      <th>home_team_form</th>
+      <th>away_team_form</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>595735</td>
+      <td>20230101</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>26070</td>
+      <td>cinch Stadium at Franklin's Gardens</td>
+      <td>Northampton</td>
+      <td>Northampton Saints</td>
+      <td>Harlequins</td>
+      <td>25907</td>
+      <td>25901</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>None</td>
+      <td>LLWWL</td>
+      <td>WLWLL</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 ### Team Stats
 
+You can then fetch the team stats for a particular team on a particular
+dates with:
+
 ``` python
-from rugbypy.team import fetch_team_stats
+team_stats = fetch_team_stats(team_id="25901", date="20230108")
+team_stats
 ```
+
+    Fetching team stats for team_id:25901 on date:20230108...
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>team</th>
+      <th>game_date</th>
+      <th>team_id</th>
+      <th>team_vs</th>
+      <th>team_vs_id</th>
+      <th>clean_breaks</th>
+      <th>conversion_goals</th>
+      <th>defenders_beaten</th>
+      <th>kick_percent_success</th>
+      <th>kicks</th>
+      <th>...</th>
+      <th>scrums_total</th>
+      <th>scrums_won</th>
+      <th>tackles</th>
+      <th>territory</th>
+      <th>total_free_kicks_conceded</th>
+      <th>total_lineouts</th>
+      <th>tries</th>
+      <th>turnover_knock_on</th>
+      <th>turnovers_conceded</th>
+      <th>yellow_cards</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Harlequins</td>
+      <td>20230108</td>
+      <td>25901</td>
+      <td>Sale Sharks</td>
+      <td>25908</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>24.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>125.0</td>
+      <td>0.41</td>
+      <td>0.0</td>
+      <td>11.0</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 40 columns</p>
+</div>
 
 ### Player Stats
 
+We can also fetch the player stats for any player using their
+player_ids. In this example we fetch Billy Twelvetrees in game stats:
+
 ``` python
-from rugbypy.player import fetch_player_stats
+player_stats = fetch_player_stats(player_id="102049")
+player_stats
 ```
+
+    Fetching all player stats for player_id:102049...
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>player_id</th>
+      <th>game_date</th>
+      <th>name</th>
+      <th>team</th>
+      <th>team_id</th>
+      <th>competition_id</th>
+      <th>competition</th>
+      <th>team_vs</th>
+      <th>team_vs_id</th>
+      <th>weight</th>
+      <th>...</th>
+      <th>rucks_won</th>
+      <th>runs</th>
+      <th>tackles</th>
+      <th>total_free_kicks_conceded</th>
+      <th>total_lineouts</th>
+      <th>tries</th>
+      <th>try_assists</th>
+      <th>turnover_knock_on</th>
+      <th>turnovers_conceded</th>
+      <th>yellow_cards</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230106</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25909</td>
+      <td>Saracens</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230128</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>116227</td>
+      <td>Exeter Chiefs</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230225</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25907</td>
+      <td>Northampton Saints</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230312</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25903</td>
+      <td>Leicester Tigers</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230324</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25906</td>
+      <td>Newcastle Falcons</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230414</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25898</td>
+      <td>Bath Rugby</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230422</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25908</td>
+      <td>Sale Sharks</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>102049</td>
+      <td>20230506</td>
+      <td>Billy Twelvetrees</td>
+      <td>Gloucester Rugby</td>
+      <td>25900</td>
+      <td>267979</td>
+      <td>Premiership Rugby</td>
+      <td>25899</td>
+      <td>Bristol Rugby</td>
+      <td>101.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 40 columns</p>
+</div>
