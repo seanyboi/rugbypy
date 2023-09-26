@@ -9,6 +9,8 @@ to aid in the development of rugby analytics.
 Data is updated daily 5AM UTC! Currently we only have 2023 data
 available with previous years coming soon.
 
+![PyPI - Downloads](https://img.shields.io/pypi/dm/rugbypy)
+
 ## Requirements
 
 python version 3.8
