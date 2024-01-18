@@ -148,3 +148,29 @@ def fetch_player_stats(
         print(
             f"No player stats for {player_id} because the player id does not exist. Please raise an issue! - {e}"
         )
+def compare_player_stats(player_id_1:str,player_id_2:str):
+    """
+    Adding new function open source contribution
+
+    Compares the stats of two rugby players.
+    Arguments:
+        player_id_1 (str):The player id of the first player.
+        player_id_2 (str): The player id of the second player.
+    Returns:
+        A DataFrame that compares the stats of the two players.
+    """
+    try:
+        # Fetch stats for both players
+        player_stats_1 =fetch_player_stats(player_id_1)
+        player_stats_2 = fetch_player_stats(player_id_2)
+
+        # Merges stat dataframes for comparison
+        comparison_df= pd.merge(
+            player_stats_1, 
+            player_stats_2,  
+            on= 'game_date', 
+            suffixes=('_player1','_player2')
+        )
+        return comparison_df
+    except Exception as e:
+        print(f"An error occurred while comparing player stats: {e}")
