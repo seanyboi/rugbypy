@@ -6,6 +6,8 @@ rugbypy
 `rugbypy` is a Python package that aims to make rugby data more
 available to aid in the development of rugby analytics.
 
+![PyPI - Downloads](https://img.shields.io/pypi/dm/rugbypy)
+
 Data is updated daily 5AM UTC! Currently we only have data for 2022,
 2023 & 2024
 
