@@ -2,10 +2,12 @@
 
 # 2.0.0 (Data update) (2025-01-06)
 
-Since the last update Github have changed the way a user can fetch data from their website. Each user has a maximum of **60 requests per hour**, however, you can use your
+- Python 3.8 support deprecation
+
+- Since the last update Github have changed the way a user can fetch data from their website. Each user has a maximum of **60 requests per hour**, however, you can use your
 Github API KEY to increase the number of requests and I shall be updating the repo soon to accomodate for this.
 
-We are also pleased to announce that we have backfilled 2022, 2023 & 2024! :tada:
+- We are also pleased to announce that we have backfilled 2022, 2023 & 2024! :tada:
 
 ### player
 
