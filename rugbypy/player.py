@@ -5,7 +5,6 @@ __all__ = ['fetch_all_players', 'fetch_player', 'fetch_player_stats']
 
 # %% ../nbs/player.ipynb 4
 import pandas as pd
-import requests
 import typing
 from collections import Counter
 from math import sqrt
@@ -14,7 +13,7 @@ from math import sqrt
 def fetch_all_players():
     """Fetches all players in the rugbypy manifest file."""
     try:
-        player_manifest_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/player/player_manifest.parquet?raw=true"
+        player_manifest_url = "https://raw.githubusercontent.com/seanyboi/rugbydata/main/data/v2/player/player_manifest.parquet"
         players = pd.read_parquet(player_manifest_url, engine="pyarrow")
         return players
     except Exception as e:
@@ -109,40 +108,19 @@ def fetch_player_stats(
     """
     Fetches all player stats for a particular player or if a date is passed then just for a particular game.
     """
-    if date:
-        print(f"Fetching player stats for player_id:{player_id} on date:{date}...")
-    else:
-        print(f"Fetching all player stats for player_id:{player_id}...")
     try:
         if date:
-            player_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/player/{player_id}/{date}"
-            path = requests.get(player_url)
-            urls = [
-                f"https://github.com/seanyboi/rugbydata/blob/main/{p['path']}?raw=true"
-                for p in path.json()["payload"]["tree"]["items"]
-            ]
-            player_stats = pd.concat(
-                (pd.read_parquet(u, engine="pyarrow") for u in urls)
+            print(
+                f"Fetching player stats for player_id: {player_id} on date: {date}..."
             )
+            player_url = f"https://raw.githubusercontent.com/seanyboi/rugbydata/main/data/v2/player/{player_id}.parquet"
+            player_stats = pd.read_parquet(player_url, engine="pyarrow")
+            player_stats = player_stats.query("game_date == @date")
             return player_stats
         else:
-            player_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/player/{player_id}"
-            path = requests.get(player_url)
-            date_urls = [
-                f"https://github.com/seanyboi/rugbydata/blob/main/{p['path']}"
-                for p in path.json()["payload"]["tree"]["items"]
-            ]
-            player_urls = [requests.get(url) for url in date_urls]
-            player_urls = [
-                p.json()["payload"]["tree"]["items"][0]["path"] for p in player_urls
-            ]
-            player_stats_url = [
-                f"https://github.com/seanyboi/rugbydata/blob/main/{p}?raw=true"
-                for p in player_urls
-            ]
-            player_stats = pd.concat(
-                (pd.read_parquet(u, engine="pyarrow") for u in player_stats_url)
-            )
+            print(f"Fetching all player stats for player_id: {player_id}...")
+            player_url = f"https://raw.githubusercontent.com/seanyboi/rugbydata/main/data/v2/player/{player_id}.parquet"
+            player_stats = pd.read_parquet(player_url, engine="pyarrow")
             return player_stats
     except Exception as e:
         print(

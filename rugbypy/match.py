@@ -15,9 +15,9 @@ def fetch_matches(date: str):
     * away_team_id
     """
 
-    print(f"Fetching matches on date:{date}...")
     try:
-        date_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/dates/{date}.parquet?raw=true"
+        print(f"Fetching matches on date: {date}...")
+        date_url = f"https://raw.githubusercontent.com/seanyboi/rugbydata/main/data/v2/dates/{date}.parquet"
         matches = pd.read_parquet(date_url, engine="pyarrow")
         matches = matches.assign(date=date)
         return matches
@@ -31,7 +31,7 @@ def fetch_match_details(match_id: str):
     """Fetches match data for a certain match_id"""
     print(f"Fetching match details for match_id:{match_id}...")
     try:
-        match_url = f"https://github.com/seanyboi/rugbydata/blob/main/data/match/{match_id}.parquet?raw=true"
+        match_url = f"https://raw.githubusercontent.com/seanyboi/rugbydata/main/data/v2/match/{match_id}.parquet"
         matches = pd.read_parquet(match_url, engine="pyarrow")
         return matches
     except Exception as e:
