@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Repository for rugby data analytics.">
+
+<title>rugbypy</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="rugbypy">
+<meta property="og:description" content="Repository for rugby data analytics.">
+<meta property="og:site_name" content="rugbypy">
+<meta name="twitter:title" content="rugbypy">
+<meta name="twitter:description" content="Repository for rugby data analytics.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">rugbypy</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">rugbypy</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">rugbypy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./competition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">competition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./match.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">match</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./player.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">player</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./team.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">team</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./venue.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">venue</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">Install</a></li>
+  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to use</a>
+  <ul class="collapse">
+  <li><a href="#match-stats" id="toc-match-stats" class="nav-link" data-scroll-target="#match-stats">Match Stats</a></li>
+  <li><a href="#team-stats" id="toc-team-stats" class="nav-link" data-scroll-target="#team-stats">Team Stats</a></li>
+  <li><a href="#player-stats" id="toc-player-stats" class="nav-link" data-scroll-target="#player-stats">Player Stats</a></li>
+  <li><a href="#competition-data" id="toc-competition-data" class="nav-link" data-scroll-target="#competition-data">Competition data</a></li>
+  <li><a href="#venue-data" id="toc-venue-data" class="nav-link" data-scroll-target="#venue-data">Venue data</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/seanyboi/rugbypy/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">rugbypy</h1>
+</div>
+
+<div>
+  <div class="description">
+    Repository for rugby data analytics.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p><em>8000</em>+ players, <em>250</em>+ teams, <em>6000</em>+ games over the 2022, 2023, 2024 &amp; 2025 seasons - <code>rugbypy</code> is a Python package that aims to make rugby data more available to aid in the development of rugby analytics. Documentation can be found <a href="seanyboi.github.io/rugbypy/">here</a></p>
+<p><img src="https://img.shields.io/pypi/dm/rugbypy.png" class="img-fluid" alt="PyPI - Downloads"> <img src="https://img.shields.io/pypi/pyversions/rugbypy.png" class="img-fluid" alt="PyPI - Python Version"></p>
+<p>If you would like to help keep the lights on and support this repo feel free to buy me a coffee!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://buymeacoffee.com/oconnorjamz"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg" class="img-fluid figure-img"></a></p>
+<figcaption>BuyMeACoffee</figcaption>
+</figure>
+</div>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p><code>python version 3.11</code></p>
+</section>
+<section id="install" class="level2">
+<h2 class="anchored" data-anchor-id="install">Install</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install rugbypy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use">How to use</h2>
+<section id="match-stats" class="level3">
+<h3 class="anchored" data-anchor-id="match-stats">Match Stats</h3>
+<p>You can fetch all matches that have ever occurred with:</p>
+<div id="10c30a64" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.match <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>matches <span class="op">=</span> fetch_all_matches()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>matches</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all matches...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">match_id</th>
+<th data-quarto-table-cell-role="th">home_team</th>
+<th data-quarto-table-cell-role="th">away_team</th>
+<th data-quarto-table-cell-role="th">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1498</th>
+<td>cae3129b</td>
+<td>Exeter Chiefs</td>
+<td>Bristol Rugby</td>
+<td>20220101</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1499</th>
+<td>494f4092</td>
+<td>Scarlets</td>
+<td>Ospreys</td>
+<td>20220101</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1500</th>
+<td>77e4e537</td>
+<td>Connacht</td>
+<td>Munster</td>
+<td>20220101</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1501</th>
+<td>fbca6594</td>
+<td>Stade Francais Paris</td>
+<td>Perpignan</td>
+<td>20220101</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1502</th>
+<td>7863a641</td>
+<td>Clermont Auvergne</td>
+<td>Stade Toulousain</td>
+<td>20220101</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1121</th>
+<td>2ac5db4a</td>
+<td>Shizuoka Bluerevs</td>
+<td>Urayasu D Rocks</td>
+<td>20251228</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1122</th>
+<td>a68f4527</td>
+<td>Toshiba Brave Lupus Tokyo</td>
+<td>Yokohama Canon Eagles</td>
+<td>20251228</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1123</th>
+<td>00adb234</td>
+<td>Mitsubishi Sagamihara Dynaboars</td>
+<td>Saitama Wild Knights</td>
+<td>20251228</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1117</th>
+<td>e37207b8</td>
+<td>Leicester</td>
+<td>Exeter Chiefs</td>
+<td>20251228</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4743</th>
+<td>667ee422</td>
+<td>Beziers</td>
+<td>Uso Nevers</td>
+<td>20260403</td>
+</tr>
+</tbody>
+</table>
+
+<p>6171 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<p>You can fetch all the matches that occured on a particular date with:</p>
+<div id="35d9e276" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.match <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>matches <span class="op">=</span> fetch_matches_by_date(date<span class="op">=</span><span class="st">"20251205"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>matches</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching matches on date: 20251205...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">match_id</th>
+<th data-quarto-table-cell-role="th">competition_id</th>
+<th data-quarto-table-cell-role="th">home_team_id</th>
+<th data-quarto-table-cell-role="th">home_team</th>
+<th data-quarto-table-cell-role="th">away_team_id</th>
+<th data-quarto-table-cell-role="th">away_team</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>35e0b16d</td>
+<td>ee0c6883</td>
+<td>d7d74d92</td>
+<td>Sale Sharks</td>
+<td>6f08f859</td>
+<td>Glasgow Warriors</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>f29de850</td>
+<td>ee0c6883</td>
+<td>fe2eda63</td>
+<td>Bayonne</td>
+<td>f54be954</td>
+<td>Stormers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>722ce3c7</td>
+<td>83d92007</td>
+<td>0aa2b3cc</td>
+<td>Ulster</td>
+<td>2e49b214</td>
+<td>Racing 92</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>6afe8441</td>
+<td>822142db</td>
+<td>deee3415</td>
+<td>Beziers</td>
+<td>af22c862</td>
+<td>Soyaux Angouleme</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>719b1db1</td>
+<td>822142db</td>
+<td>93d1e116</td>
+<td>Carcassonne</td>
+<td>34149c5c</td>
+<td>Vannes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>3aa1bb81</td>
+<td>822142db</td>
+<td>98fce2f7</td>
+<td>Biarritz</td>
+<td>791d6c23</td>
+<td>Valence Romans</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>575235eb</td>
+<td>822142db</td>
+<td>870e9fb0</td>
+<td>Aurillac</td>
+<td>d5468acc</td>
+<td>Brive</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>66a1c770</td>
+<td>822142db</td>
+<td>6992ab09</td>
+<td>Dax</td>
+<td>8b15a375</td>
+<td>Uso Nevers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>f196da5a</td>
+<td>822142db</td>
+<td>2bac4677</td>
+<td>Agen</td>
+<td>4f43e2ca</td>
+<td>Provence Rugby</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>416f317e</td>
+<td>822142db</td>
+<td>6de7a527</td>
+<td>Mont De Marsan</td>
+<td>53983719</td>
+<td>Oyonnax</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The old method below is deprecated as of v3:</p>
+<div id="7e78ffe1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>matches <span class="op">=</span> fetch_matches(date<span class="op">=</span><span class="st">"20230101"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Deprecated, please use the fetch_matches_by_date() function instead</code></pre>
+</div>
+</div>
+<p>Then using that match id you can feed it into the match details function:</p>
+<div id="5488a97a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.match <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>match_details <span class="op">=</span> fetch_match_details(match_id<span class="op">=</span><span class="st">"35e0b16d"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>match_details</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching match details for match_id: 35e0b16d...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">match_id</th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">season</th>
+<th data-quarto-table-cell-role="th">competition_id</th>
+<th data-quarto-table-cell-role="th">competition</th>
+<th data-quarto-table-cell-role="th">venue_id</th>
+<th data-quarto-table-cell-role="th">venue</th>
+<th data-quarto-table-cell-role="th">city_played</th>
+<th data-quarto-table-cell-role="th">home_team</th>
+<th data-quarto-table-cell-role="th">away_team</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">completed</th>
+<th data-quarto-table-cell-role="th">is_tournament</th>
+<th data-quarto-table-cell-role="th">played_on_grass</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">home_team_form</th>
+<th data-quarto-table-cell-role="th">away_team_form</th>
+<th data-quarto-table-cell-role="th">kickoff_time</th>
+<th data-quarto-table-cell-role="th">home_score</th>
+<th data-quarto-table-cell-role="th">away_score</th>
+<th data-quarto-table-cell-role="th">referee</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>35e0b16d</td>
+<td>20251205</td>
+<td>2025</td>
+<td>ee0c6883</td>
+<td>European Rugby Champions Cup</td>
+<td>059580a0</td>
+<td>CorpAcq Stadium</td>
+<td>Salford</td>
+<td>Sale Sharks</td>
+<td>Glasgow Warriors</td>
+<td>...</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>None</td>
+<td>WLWLL</td>
+<td>WWWWL</td>
+<td>14:30</td>
+<td>21</td>
+<td>26</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 22 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="team-stats" class="level3">
+<h3 class="anchored" data-anchor-id="team-stats">Team Stats</h3>
+<p>You can fetch all the teams within the rugbypy database from our registry with:</p>
+<div id="6aa6c17b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fetch_all_teams()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all teams available...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">team_id</th>
+<th data-quarto-table-cell-role="th">team_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>5fa975a5</td>
+<td>Ospreys</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>79c81be4</td>
+<td>Cardiff Blues</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0e10c257</td>
+<td>Scarlets</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>973ef5cc</td>
+<td>Gwent Dragons</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>93542906</td>
+<td>Newcastle</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">284</th>
+<td>0c3eb5f5</td>
+<td>France Women 7s</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">285</th>
+<td>91fc7224</td>
+<td>Brazil Women 7s</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">286</th>
+<td>03817b3b</td>
+<td>Fiji Women 7s</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">287</th>
+<td>3baba750</td>
+<td>Canada Women 7s</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">288</th>
+<td>04349324</td>
+<td>New Zealand Women 7s</td>
+</tr>
+</tbody>
+</table>
+
+<p>289 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<p>You can fetch the team stats for a particular with:</p>
+<div id="c251949b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.team <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>team_stats <span class="op">=</span> fetch_team_stats(team_id<span class="op">=</span><span class="st">"93542906"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>team_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all team stats for team_id: 93542906...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">game_date</th>
+<th data-quarto-table-cell-role="th">team_id</th>
+<th data-quarto-table-cell-role="th">team_vs</th>
+<th data-quarto-table-cell-role="th">team_vs_id</th>
+<th data-quarto-table-cell-role="th">match_id</th>
+<th data-quarto-table-cell-role="th">players</th>
+<th data-quarto-table-cell-role="th">22m_entries</th>
+<th data-quarto-table-cell-role="th">22m_conversion</th>
+<th data-quarto-table-cell-role="th">line_breaks</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">scrums_won</th>
+<th data-quarto-table-cell-role="th">tackles</th>
+<th data-quarto-table-cell-role="th">territory</th>
+<th data-quarto-table-cell-role="th">total_free_kicks_conceded</th>
+<th data-quarto-table-cell-role="th">total_lineouts</th>
+<th data-quarto-table-cell-role="th">tries</th>
+<th data-quarto-table-cell-role="th">turnover_knock_on</th>
+<th data-quarto-table-cell-role="th">turnovers_conceded</th>
+<th data-quarto-table-cell-role="th">yellow_cards</th>
+<th data-quarto-table-cell-role="th">metres_carried</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Newcastle</td>
+<td>20250103</td>
+<td>93542906</td>
+<td>Harlequins</td>
+<td>566d5199</td>
+<td>3e3e2af2</td>
+<td>[4e129a8c, 39c63750, 04f27e6a, 8a10bc21, 0c2d9...</td>
+<td>9.0</td>
+<td>4.22</td>
+<td>6.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Newcastle</td>
+<td>20250111</td>
+<td>93542906</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>f8d5672a</td>
+<td>[39c63750, f9e52f58, ece068ae, bfb19f72, d5a55...</td>
+<td>10.0</td>
+<td>3.50</td>
+<td>8.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Newcastle</td>
+<td>20250117</td>
+<td>93542906</td>
+<td>Montpellier</td>
+<td>b6f40da2</td>
+<td>57acf63c</td>
+<td>[39c63750, 04f27e6a, f9e52f58, 0c2d9ef3, ece06...</td>
+<td>12.0</td>
+<td>2.17</td>
+<td>9.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Newcastle</td>
+<td>20250126</td>
+<td>93542906</td>
+<td>Bristol</td>
+<td>47d5fe17</td>
+<td>10cecec6</td>
+<td>[4e129a8c, 39c63750, 04f27e6a, 8a10bc21, 0c2d9...</td>
+<td>7.0</td>
+<td>5.00</td>
+<td>2.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Newcastle</td>
+<td>20250321</td>
+<td>93542906</td>
+<td>Sale</td>
+<td>d7d74d92</td>
+<td>1eed410b</td>
+<td>[4e129a8c, 04f27e6a, b7a90ca8, 8a10bc21, 0c2d9...</td>
+<td>8.0</td>
+<td>1.88</td>
+<td>3.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">87</th>
+<td>Newcastle</td>
+<td>20241129</td>
+<td>93542906</td>
+<td>Saracens</td>
+<td>0026b492</td>
+<td>355072a4</td>
+<td>[1ec5b586, a850f667, 0c2d9ef3, 40ef3013, 20006...</td>
+<td>9.0</td>
+<td>1.89</td>
+<td>4.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">88</th>
+<td>Newcastle</td>
+<td>20241208</td>
+<td>93542906</td>
+<td>Pau</td>
+<td>73e02b8e</td>
+<td>04558689</td>
+<td>[1ec5b586, 548a8c29, a850f667, 0c2d9ef3, 20006...</td>
+<td>12.0</td>
+<td>2.67</td>
+<td>7.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">89</th>
+<td>Newcastle</td>
+<td>20241215</td>
+<td>93542906</td>
+<td>Gwent Dragons</td>
+<td>973ef5cc</td>
+<td>9f498135</td>
+<td>[1ec5b586, 548a8c29, a850f667, 0c2d9ef3, 20006...</td>
+<td>12.0</td>
+<td>1.83</td>
+<td>6.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">90</th>
+<td>Newcastle</td>
+<td>20241221</td>
+<td>93542906</td>
+<td>Bath</td>
+<td>aa4f64f5</td>
+<td>e251bdbf</td>
+<td>[1ec5b586, 548a8c29, a850f667, 0c2d9ef3, 40ef3...</td>
+<td>12.0</td>
+<td>3.33</td>
+<td>6.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">91</th>
+<td>Newcastle</td>
+<td>20241228</td>
+<td>93542906</td>
+<td>Northampton</td>
+<td>895ae027</td>
+<td>c8490107</td>
+<td>[1ec5b586, a850f667, 0c2d9ef3, 40ef3013, 20006...</td>
+<td>12.0</td>
+<td>5.08</td>
+<td>12.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>92 rows × 59 columns</p>
+</div>
+</div>
+</div>
+<p>You can then fetch the team stats for a particular team on a particular date with:</p>
+<div id="8bd0cad1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.team <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>team_stats <span class="op">=</span> fetch_team_stats(team_id<span class="op">=</span><span class="st">"93542906"</span>, date<span class="op">=</span><span class="st">"20251213"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>team_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching team stats for team_id: 93542906 on date: 20251213...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">game_date</th>
+<th data-quarto-table-cell-role="th">team_id</th>
+<th data-quarto-table-cell-role="th">team_vs</th>
+<th data-quarto-table-cell-role="th">team_vs_id</th>
+<th data-quarto-table-cell-role="th">match_id</th>
+<th data-quarto-table-cell-role="th">players</th>
+<th data-quarto-table-cell-role="th">22m_entries</th>
+<th data-quarto-table-cell-role="th">22m_conversion</th>
+<th data-quarto-table-cell-role="th">line_breaks</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">scrums_won</th>
+<th data-quarto-table-cell-role="th">tackles</th>
+<th data-quarto-table-cell-role="th">territory</th>
+<th data-quarto-table-cell-role="th">total_free_kicks_conceded</th>
+<th data-quarto-table-cell-role="th">total_lineouts</th>
+<th data-quarto-table-cell-role="th">tries</th>
+<th data-quarto-table-cell-role="th">turnover_knock_on</th>
+<th data-quarto-table-cell-role="th">turnovers_conceded</th>
+<th data-quarto-table-cell-role="th">yellow_cards</th>
+<th data-quarto-table-cell-role="th">metres_carried</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">18</th>
+<td>Newcastle</td>
+<td>20251213</td>
+<td>93542906</td>
+<td>Lions</td>
+<td>bb49fc47</td>
+<td>87ab265a</td>
+<td>[dbd1161c, 4e129a8c, 8a10bc21, 3b0a4aa4, 0c2d9...</td>
+<td>9.0</td>
+<td>1.11</td>
+<td>4.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 59 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="player-stats" class="level3">
+<h3 class="anchored" data-anchor-id="player-stats">Player Stats</h3>
+<p>We have the ability to fetch player stats for all the games they have been involved in. We firstly identify the <code>player_id</code> of a player by searching our player registry.</p>
+<div id="5c954a3e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.player <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>players <span class="op">=</span> fetch_all_players()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>players</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player_id</th>
+<th data-quarto-table-cell-role="th">player_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>9f0d99ce</td>
+<td>Morgan Morris</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>e31a204b</td>
+<td>James Ratti</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>b1d2895a</td>
+<td>Max Nagy</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>25bfea05</td>
+<td>Daniel Kasende</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8439</th>
+<td>b4a9513f</td>
+<td>Paul Mullen</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8440</th>
+<td>edf9d7e1</td>
+<td>Tom Baraer</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8441</th>
+<td>da8da81b</td>
+<td>Nathan Van de Ven</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8442</th>
+<td>d5c9a047</td>
+<td>Nicolas Gali</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8443</th>
+<td>3834ffae</td>
+<td>Nicholas Muli</td>
+</tr>
+</tbody>
+</table>
+
+<p>8444 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<p>Or we can search for a certain player through our similarity tool:</p>
+<div id="48ba4467" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.player <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>individual_player <span class="op">=</span> fetch_player_id(<span class="st">"jac morgan"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>individual_player</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player_id</th>
+<th data-quarto-table-cell-role="th">player_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3518</th>
+<td>2c8b48a5</td>
+<td>Francesco Braga</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5860</th>
+<td>e387e07f</td>
+<td>Franco Lamanna</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Once we have their <code>player_id</code> we can fetch their player stats using <a href="https://seanyboi.github.io/rugbypy/player.html#fetch_player_stats"><code>fetch_player_stats</code></a>. In this example we fetch Jac Morgan player stats:</p>
+<div id="38d35b0a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.player <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>player_stats <span class="op">=</span> fetch_player_stats(player_id<span class="op">=</span><span class="st">"24717f78"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>player_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all player stats for player_id: 24717f78...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player_id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">team_id</th>
+<th data-quarto-table-cell-role="th">position</th>
+<th data-quarto-table-cell-role="th">carries</th>
+<th data-quarto-table-cell-role="th">line_breaks</th>
+<th data-quarto-table-cell-role="th">tackles_completed</th>
+<th data-quarto-table-cell-role="th">turnovers_lost</th>
+<th data-quarto-table-cell-role="th">turnovers_won</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">offload</th>
+<th data-quarto-table-cell-role="th">penalty_goals</th>
+<th data-quarto-table-cell-role="th">points</th>
+<th data-quarto-table-cell-role="th">rucks_won</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">tackles</th>
+<th data-quarto-table-cell-role="th">total_free_kicks_conceded</th>
+<th data-quarto-table-cell-role="th">total_lineouts</th>
+<th data-quarto-table-cell-role="th">turnover_knock_on</th>
+<th data-quarto-table-cell-role="th">turnovers_conceded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>blindside_flanker</td>
+<td>9.0</td>
+<td>0.0</td>
+<td>19.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>blindside_flanker</td>
+<td>11.0</td>
+<td>0.0</td>
+<td>12.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>openside_flanker</td>
+<td>10.0</td>
+<td>0.0</td>
+<td>30.0</td>
+<td>0.0</td>
+<td>2.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Wales</td>
+<td>b6319444</td>
+<td>flanker</td>
+<td>15.0</td>
+<td>1.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>12.0</td>
+<td>15.0</td>
+<td>21.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Wales</td>
+<td>b6319444</td>
+<td>flanker</td>
+<td>8.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>7.0</td>
+<td>8.0</td>
+<td>13.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">67</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Wales</td>
+<td>b6319444</td>
+<td>openside_flanker</td>
+<td>14.0</td>
+<td>0.0</td>
+<td>27.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">68</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Wales</td>
+<td>b6319444</td>
+<td>openside_flanker</td>
+<td>11.0</td>
+<td>0.0</td>
+<td>28.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">69</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>number_eight</td>
+<td>13.0</td>
+<td>1.0</td>
+<td>12.0</td>
+<td>0.0</td>
+<td>3.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">70</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>openside_flanker</td>
+<td>9.0</td>
+<td>0.0</td>
+<td>11.0</td>
+<td>0.0</td>
+<td>2.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">71</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>blindside_flanker</td>
+<td>14.0</td>
+<td>0.0</td>
+<td>12.0</td>
+<td>0.0</td>
+<td>4.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>72 rows × 54 columns</p>
+</div>
+</div>
+</div>
+<p>We can also fetch the player stats on a particular date using <a href="https://seanyboi.github.io/rugbypy/player.html#fetch_player_stats"><code>fetch_player_stats</code></a>. In this example we fetch Jac Morgans player stats on 2025-01-01:</p>
+<div id="9fa446ed" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.player <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>player_stats <span class="op">=</span> fetch_player_stats(player_id<span class="op">=</span><span class="st">"24717f78"</span>, date<span class="op">=</span><span class="st">"20250101"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>player_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching player stats for player_id: 24717f78 on date: 20250101...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player_id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">team_id</th>
+<th data-quarto-table-cell-role="th">position</th>
+<th data-quarto-table-cell-role="th">carries</th>
+<th data-quarto-table-cell-role="th">line_breaks</th>
+<th data-quarto-table-cell-role="th">tackles_completed</th>
+<th data-quarto-table-cell-role="th">turnovers_lost</th>
+<th data-quarto-table-cell-role="th">turnovers_won</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">offload</th>
+<th data-quarto-table-cell-role="th">penalty_goals</th>
+<th data-quarto-table-cell-role="th">points</th>
+<th data-quarto-table-cell-role="th">rucks_won</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">tackles</th>
+<th data-quarto-table-cell-role="th">total_free_kicks_conceded</th>
+<th data-quarto-table-cell-role="th">total_lineouts</th>
+<th data-quarto-table-cell-role="th">turnover_knock_on</th>
+<th data-quarto-table-cell-role="th">turnovers_conceded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>24717f78</td>
+<td>Jac Morgan</td>
+<td>Ospreys</td>
+<td>5fa975a5</td>
+<td>blindside_flanker</td>
+<td>9.0</td>
+<td>0.0</td>
+<td>19.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 54 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="competition-data" class="level3">
+<h3 class="anchored" data-anchor-id="competition-data">Competition data</h3>
+<p>You can fetch all competition ids to from our competition registry with:</p>
+<div id="c86cd0ab" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.competition <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>competitions <span class="op">=</span> fetch_all_competitions()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>competitions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all competition...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">competition_id</th>
+<th data-quarto-table-cell-role="th">competition_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>50e6935b</td>
+<td>World Rugby U20 Championship</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0fad1a69</td>
+<td>Premiership Womens Rugby</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2f0de05a</td>
+<td>French Top 14</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>d7c59c8c</td>
+<td>Japan Rugby League One</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>822142db</td>
+<td>Pro D2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>83d92007</td>
+<td>European Rugby Challenge Cup</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>467a422f</td>
+<td>Womens Six Nations</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>0bc7d681</td>
+<td>British and Irish Lions Tour</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>c2f89f12</td>
+<td>Currie Cup</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>679f8455</td>
+<td>Bunnings Npc</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>b5e3c6bd</td>
+<td>Women's Rugby World Cup</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11</th>
+<td>bc5d9ec5</td>
+<td>Pacific Nations Cup</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>ee0c6883</td>
+<td>European Rugby Champions Cup</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13</th>
+<td>2c3df351</td>
+<td>Gallagher Prem</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14</th>
+<td>23df32a1</td>
+<td>International Test Match</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">15</th>
+<td>0ab9177f</td>
+<td>Major League Rugby</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">16</th>
+<td>622e1591</td>
+<td>URBA Top 12</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">17</th>
+<td>814f16bc</td>
+<td>Mitre 10 Cup</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">18</th>
+<td>877aa127</td>
+<td>Super Rugby</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">19</th>
+<td>30e7e1ca</td>
+<td>Womens Internationals</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">20</th>
+<td>df0639c9</td>
+<td>U20 Six Nations</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">21</th>
+<td>a97ec065</td>
+<td>Olympic Men's 7s</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">22</th>
+<td>0f8b619e</td>
+<td>Olympic Women's Rugby Sevens</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="venue-data" class="level3">
+<h3 class="anchored" data-anchor-id="venue-data">Venue data</h3>
+<p>You can fetch all venue ids to from our venue registry with:</p>
+<div id="7b99f67e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rugbypy.venue <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>competitions <span class="op">=</span> fetch_all_venues()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>competitions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fetching all venues...</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">venue_id</th>
+<th data-quarto-table-cell-role="th">venue_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>fb155133</td>
+<td>Cardiff Arms Park</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1f19e651</td>
+<td>Parc y Scarlets</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>74f2b7f9</td>
+<td>Kingston Park</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>477771ab</td>
+<td>Kingsholm</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>3933483f</td>
+<td>Mattioli Woods Welford Road Stadium</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">345</th>
+<td>8c0b3ee4</td>
+<td>Estadio Jorge Luis Hirschi</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">346</th>
+<td>8a535068</td>
+<td>Estadio Brigadier General Estanislao López</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">347</th>
+<td>b9f8a9dd</td>
+<td>Massey university</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">348</th>
+<td>cc60410c</td>
+<td>Bluenergy Stadium</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">349</th>
+<td>8c764117</td>
+<td>Chambéry Savoie Stadium</td>
+</tr>
+</tbody>
+</table>
+
+<p>350 rows × 2 columns</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/seanyboi\.github\.io\/rugbypy");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/seanyboi/rugbypy/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
