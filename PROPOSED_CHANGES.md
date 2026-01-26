@@ -236,7 +236,7 @@ Before merging, consider testing:
 ### Enhanced Function Testing
 4. `fetch_player_stats()` with `match_id` parameter
 5. `fetch_player_stats()` with `competition_id` parameter
-6. `fetch_team_stats()` with `competition_id` parameter
+6. `fetch_team_stats()` with `match_id` parameter
 7. All three functions with `date` parameter (regression testing)
 8. All functions with no optional parameters (regression testing)
 
@@ -244,11 +244,6 @@ Before merging, consider testing:
 9. Error handling when match, player, or team data is unavailable
 10. Behavior when invalid IDs are provided
 11. Edge cases with empty DataFrames
-
-### Code Quality Testing
-12. Verify no code duplication in refactored functions
-13. Ensure all docstrings render correctly in documentation
-14. Validate type hints are correct
 
 ---
 
@@ -278,14 +273,10 @@ Potential areas for future improvement:
 
 ## Author Notes
 
-These changes significantly improve the library's capability to fetch comprehensive match-level player statistics while maintaining backward compatibility and code quality standards. The refactoring eliminates code duplication, improves maintainability, and sets a strong foundation for future enhancements.
+I wanted to adress the issue opened on the repository. I added a few enhancements in the meantime, as I am using the project on my side and I think this will facilitate the requesting (at least for me it does).
+Let me know (lucas33220@gmail.com) if you have any idea of feature enhancement or new features I can implement in the future, I will gladly help. Thank you for the work and the data !
 
-**Key Achievements:**
-- ✓ New match-level player stats fetching with parallel processing
-- ✓ Competition-level filtering across player and team functions
-- ✓ Eliminated code duplication through smart refactoring
-- ✓ Enhanced documentation with comprehensive docstrings
-- ✓ Maintained 100% backward compatibility
+Lucas
 
 **Date:** 2026-01-26
 **Version:** 3.0.0 → 3.1.0 (proposed)
