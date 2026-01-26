@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip show:*)",
+      "Bash(pip --version:*)",
+      "Bash(jupyter kernelspec:*)",
+      "Bash(python:*)",
+      "Bash(.\\\\venv\\\\Scripts\\\\python.exe -m pip install:*)",
+      "Bash(venv/Scripts/python.exe -m pip install:*)",
+      "Bash(venv/Scripts/python.exe:*)",
+      "Bash(test:*)",
+      "Bash(git fetch:*)"
+    ]
+  }
+}
