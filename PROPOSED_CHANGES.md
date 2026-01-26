@@ -198,12 +198,6 @@ from rugbypy.team import fetch_team_stats
 # Fetch all stats for a team
 all_stats = fetch_team_stats(team_id="93542906")
 
-# Fetch stats for a specific competition
-competition_stats = fetch_team_stats(
-    team_id="93542906",
-    competition_id="ee0c6883"
-)
-
 # Fetch stats for a specific match
 match_stats = fetch_team_stats(
     team_id="93542906",
